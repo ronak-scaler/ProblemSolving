@@ -50,19 +50,24 @@ public class FirstMissingPositive {
     }
 
     private static int firstMissingPositive(int[] nums) {
-        int n = nums.length; //4
-        for(int i=0; i<n; i++){
-            while (nums[i] > 0 && nums[i] <=n && nums[nums[i]-1] != nums[i]){
-                int temp = nums[nums[i]-1];
-                nums[nums[i]-1] = nums[i];
-                nums[i] = temp;
-            }
-        }
-        for(int i=0; i<n; i++){
-            if(nums[i] != i+1){
-                return i+1;
-            }
-        }
-        return n+1;
+       int n = nums.length;
+       for(int index=0; index<n; index++){
+           if(nums[index]<0){
+               nums[index]= n+1;
+           }
+       }
+       for(int num : nums){
+           int x = Math.abs(num);
+           if (x >= 1 && x <= n) {
+
+               nums[x-1] = -Math.abs(nums[x-1]);
+           }
+       }
+       for(int index=0; index<n; index++){
+           if(nums[index]>0){
+               return index+1;
+           }
+       }
+       return n+1;
     }
 }
